@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jiaqi Ding — UNC-Chapel Hill</title>
+<meta name="description" content="PhD student at UNC-Chapel Hill working at the intersection of computational neuroscience and machine learning.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500;8..60,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --accent: #2d5a3f;
+  --accent-soft: #4a7c5a;
+  --accent-pale: #e8efe9;
+  --ink: #1a1f1c;
+  --ink-soft: #4a544c;
+  --ink-mute: #7a8580;
+  --ink-light: #aab3ad;
+  --bg: #ffffff;
+  --bg-soft: #fafaf8;
+  --line: #e5e7e3;
+  --line-soft: #eef0eb;
+  --serif: 'Source Serif 4', Georgia, serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); font-size: 15px; line-height: 1.7; color: var(--ink); background: var(--bg); font-weight: 400; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+a { color: inherit; text-decoration: none; }
+
+.topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.92); backdrop-filter: saturate(140%) blur(12px); -webkit-backdrop-filter: saturate(140%) blur(12px); border-bottom: 1px solid var(--line-soft); }
+.topnav-inner { max-width: 1100px; margin: 0 auto; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; }
+.topnav-name { font-family: var(--serif); font-size: 17px; font-weight: 500; letter-spacing: -0.01em; color: var(--accent); }
+.topnav-links { display: flex; gap: 28px; list-style: none; }
+.topnav-links a { font-size: 13.5px; color: var(--ink-soft); font-weight: 400; letter-spacing: 0.005em; transition: color 0.2s ease; position: relative; padding-bottom: 2px; }
+.topnav-links a:hover { color: var(--accent); }
+.topnav-links a::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 0; height: 1px; background: var(--accent); transition: width 0.25s ease; }
+.topnav-links a:hover::after { width: 100%; }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 110px 40px 100px; display: grid; grid-template-columns: 280px 1fr; gap: 60px; min-height: 100vh; }
+
+.sidebar { position: sticky; top: 100px; height: fit-content; align-self: start; }
+.profile-photo { width: 100%; max-width: 280px; aspect-ratio: 3/2; border-radius: 10px; background: linear-gradient(135deg, var(--accent-pale) 0%, var(--bg-soft) 100%); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 60px; color: var(--accent); font-weight: 300; position: relative; overflow: hidden; margin-bottom: 24px; }
+.profile-photo::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 60%); }
+.profile-photo span { position: relative; z-index: 1; letter-spacing: -0.03em; }
+.profile-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sidebar-name { font-family: var(--serif); font-size: 28px; font-weight: 500; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 6px; line-height: 1.15; }
+.sidebar-affiliation { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin-bottom: 4px; }
+.sidebar-affiliation a { color: var(--accent); transition: color 0.2s ease; }
+.sidebar-affiliation a:hover { color: var(--accent-soft); }
+.sidebar-advisor { font-size: 13px; color: var(--ink-mute); line-height: 1.55; margin-bottom: 24px; }
+.sidebar-advisor a { color: var(--accent); border-bottom: 1px solid transparent; transition: border-color 0.2s ease; }
+.sidebar-advisor a:hover { border-bottom-color: var(--accent); }
+.sidebar-icons { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+.sidebar-icons a { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; color: var(--ink-mute); border: 1px solid var(--line); border-radius: 6px; transition: all 0.18s ease; background: var(--bg); }
+.sidebar-icons a:hover { color: var(--accent); border-color: var(--accent-soft); transform: translateY(-1px); }
+.sidebar-icons svg { width: 15px; height: 15px; }
+
+.main { max-width: 720px; padding-top: 6px; }
+.section { margin-bottom: 56px; scroll-margin-top: 100px; }
+.section-title { font-family: var(--serif); font-size: 22px; font-weight: 500; color: var(--ink); letter-spacing: -0.01em; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--line); display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.section-title-side { font-family: var(--sans); font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ink-mute); font-weight: 500; }
+
+.about-text { font-size: 15.5px; color: var(--ink-soft); line-height: 1.78; margin-bottom: 14px; }
+.about-text strong { color: var(--ink); font-weight: 500; }
+.about-text a { color: var(--accent); border-bottom: 1px solid var(--accent-pale); transition: border-color 0.2s ease; }
+.about-text a:hover { border-bottom-color: var(--accent); }
+
+.news-list { list-style: none; max-height: 320px; overflow-y: auto; padding-right: 12px; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+.news-list::-webkit-scrollbar { width: 5px; }
+.news-list::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+.news-item { display: grid; grid-template-columns: 88px 1fr; gap: 18px; padding: 9px 0; border-bottom: 1px solid var(--line-soft); font-size: 14px; align-items: baseline; }
+.news-item:last-child { border-bottom: none; }
+.news-date { font-family: var(--serif); color: var(--accent); font-size: 13px; font-weight: 500; white-space: nowrap; }
+.news-text { color: var(--ink-soft); line-height: 1.55; }
+.news-text strong { color: var(--ink); font-weight: 500; }
+.news-text em { font-style: italic; color: var(--ink); }
+
+.view-toggle { display: inline-flex; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 6px; padding: 3px; gap: 2px; }
+.view-toggle button { background: transparent; border: none; padding: 5px 14px; font-family: var(--sans); font-size: 12px; color: var(--ink-soft); cursor: pointer; border-radius: 4px; transition: all 0.18s ease; font-weight: 500; letter-spacing: 0.02em; }
+.view-toggle button:hover { color: var(--accent); }
+.view-toggle button.active { background: var(--accent); color: white; }
+
+.view-content { display: none; }
+.view-content.active { display: block; }
+
+.pub-group-title { font-family: var(--serif); font-size: 14px; font-weight: 500; color: var(--accent); margin: 32px 0 16px; padding-left: 12px; border-left: 2px solid var(--accent); letter-spacing: -0.005em; }
+.pub-group-title:first-of-type { margin-top: 8px; }
+
+.pub-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+.pub { display: grid; grid-template-columns: 100px 1fr; gap: 16px; align-items: start; }
+.pub.pub-text-only { grid-template-columns: 1fr; gap: 0; }
+.pub-thumb { width: 100px; height: 70px; border-radius: 5px; background: var(--bg-soft); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; transition: border-color 0.2s ease; flex-shrink: 0; }
+.pub:hover .pub-thumb { border-color: var(--accent-soft); }
+.pub-thumb svg { width: 100%; height: 100%; }
+.pub-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pub-content { font-size: 13.5px; line-height: 1.5; }
+.pub-title { color: var(--ink); font-weight: 500; margin-bottom: 3px; letter-spacing: -0.005em; font-size: 14px; line-height: 1.4; }
+.pub-title a { border-bottom: 1px solid transparent; transition: all 0.2s ease; }
+.pub-title a:hover { color: var(--accent); border-bottom-color: var(--accent-soft); }
+.pub-authors { color: var(--ink-soft); font-size: 12.5px; margin-bottom: 3px; line-height: 1.45; }
+.pub-authors strong { color: var(--ink); font-weight: 600; }
+.pub-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pub-venue { font-family: var(--serif); font-style: italic; color: var(--ink-mute); font-size: 12.5px; }
+.pub-badge { font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); background: var(--accent-pale); padding: 2px 6px; border-radius: 3px; font-weight: 600; }
+
+.timeline { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+.tl-item { display: grid; grid-template-columns: 130px 1fr; gap: 18px; padding: 4px 0; align-items: baseline; }
+.tl-date { font-family: var(--serif); font-size: 13px; color: var(--ink-mute); font-style: italic; white-space: nowrap; }
+.tl-content { font-size: 14px; line-height: 1.5; }
+.tl-title { color: var(--ink); font-weight: 500; margin-bottom: 2px; }
+.tl-sub { color: var(--ink-soft); font-size: 13px; }
+.tl-sub a { color: var(--accent); transition: color 0.2s ease; }
+.tl-sub a:hover { color: var(--accent-soft); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+.col-section h3 { font-family: var(--serif); font-size: 16px; font-weight: 500; color: var(--ink); margin-bottom: 12px; letter-spacing: -0.005em; }
+.col-section ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.col-section li { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; }
+.col-section li strong { color: var(--ink); font-weight: 500; }
+
+.footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line-soft); font-size: 12px; color: var(--ink-light); text-align: center; font-family: var(--serif); font-style: italic; }
+
+@media (max-width: 900px) {
+  .topnav-inner { padding: 14px 24px; }
+  .topnav-links { gap: 18px; }
+  .topnav-links a { font-size: 12.5px; }
+  .topnav-name { font-size: 15px; }
+  .container { grid-template-columns: 1fr; gap: 40px; padding: 90px 24px 80px; }
+  .sidebar { position: static; text-align: center; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+  .profile-photo { margin: 0 auto 20px; max-width: 240px; font-size: 48px; }
+  .sidebar-icons { justify-content: center; }
+  .main { max-width: 100%; }
+  .pub { grid-template-columns: 80px 1fr; gap: 12px; }
+  .pub-thumb { width: 80px; height: 56px; }
+  .news-item { grid-template-columns: 76px 1fr; gap: 14px; }
+  .tl-item { grid-template-columns: 1fr; gap: 2px; }
+  .two-col { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width: 600px) {
+  .topnav-links { gap: 14px; }
+  .topnav-links a { font-size: 12px; }
+  .topnav-name { display: none; }
+}
+@media (max-width: 540px) {
+  .container { padding: 80px 18px 60px; }
+  .pub { grid-template-columns: 1fr; gap: 8px; }
+  .pub-thumb { width: 100%; height: 110px; }
+  .news-item { grid-template-columns: 1fr; gap: 2px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="topnav-name">Jiaqi Ding</div>
+    <ul class="topnav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#more">More</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container">
+
+  <aside class="sidebar">
+    <div class="profile-photo"><img src="profile.jpg" alt="Jiaqi Ding"></div>
+    <h1 class="sidebar-name">Jiaqi Ding</h1>
+    <div class="sidebar-affiliation">PhD Candidate in Computer Science<br><a href="https://www.unc.edu" target="_blank">UNC-Chapel Hill</a></div>
+
+    <div class="sidebar-icons">
+      <a href="mailto:jiaqid@cs.unc.edu" title="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?hl=en&user=5h5qru8AAAAJ&view_op=list_works" target="_blank" title="Google Scholar">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+      </a>
+      <a href="https://github.com/jq-ding" target="_blank" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/jiaqi-ding-b701282b9/" target="_blank" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="Jiaqi_Ding_CV.pdf" target="_blank" title="CV">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="section" id="about">
+      <h2 class="section-title"><span>About</span><span class="section-title-side">Hi 👋</span></h2>
+      <p class="about-text">
+        I am a fourth-year PhD candidate at <a href="https://www.unc.edu/" target="_blank">UNC-Chapel Hill</a>, working with <a href="https://www.acmlab.org/" target="_blank">Prof. Guorong Wu</a>. Before UNC, I received my M.S. in Computer Technology from <strong>Tianjin University</strong> and my B.S. in Digital Media Technology from <strong>Shandong University</strong>.
+      </p>
+      <p class="about-text">
+        My work sits at the intersection of <strong>computational neuroscience and machine learning</strong>. I build neuro-inspired, interpretable models to analyze brain dynamics from fMRI and related modalities, and draw principles from neural systems to design ML models that are robust, data-efficient, and scientifically meaningful.
+      </p>
+    </div>
+
+    <div class="section" id="news">
+      <h2 class="section-title"><span>News</span><span class="section-title-side">Recent</span></h2>
+      <ul class="news-list">
+        <li class="news-item"><span class="news-date">2026</span><span class="news-text">1 paper accepted by <strong>Information Sciences</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Jan 2026</span><span class="news-text">Attended <strong>AAAI 2026</strong> and gave an <strong>Oral</strong> presentation.</span></li>
+        <li class="news-item"><span class="news-date">2026</span><span class="news-text">1 paper accepted by <strong>Medical Image Analysis</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Dec 2025</span><span class="news-text">1 paper accepted by <strong>AAAI 2026</strong> as <strong>Oral</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Dec 2025</span><span class="news-text">Attended <strong>NeurIPS 2025</strong> in San Diego.</span></li>
+        <li class="news-item"><span class="news-date">Sep 2025</span><span class="news-text">2 papers accepted by <strong>NeurIPS 2025</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Aug 2025</span><span class="news-text">1 paper accepted by <strong>Nature Communications</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Jun 2025</span><span class="news-text">1 paper accepted by <strong>IEEE TBME</strong>.</span></li>
+        <li class="news-item"><span class="news-date">2025</span><span class="news-text">1 paper accepted by <strong>Electronics</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Dec 2024</span><span class="news-text">1 paper accepted by <strong>AAAI 2025</strong> as <strong>Oral</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Oct 2024</span><span class="news-text">Attended <strong>MICCAI 2024</strong> in Marrakech.</span></li>
+        <li class="news-item"><span class="news-date">Sep 2024</span><span class="news-text">1 paper accepted by <strong>NeurIPS 2024</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Oct 2024</span><span class="news-text">2 papers accepted by <strong>MICCAI 2024</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Sep 2023</span><span class="news-text">1 paper accepted by <strong>NeurIPS 2023</strong>.</span></li>
+        <li class="news-item"><span class="news-date">2023</span><span class="news-text">2 papers accepted by <strong>MICCAI 2023</strong> and <strong>IEEE ISBI 2023</strong>.</span></li>
+        <li class="news-item"><span class="news-date">Aug 2022</span><span class="news-text">Joined Prof. Guorong Wu's group at <strong>UNC-Chapel Hill</strong> as a PhD student.</span></li>
+      </ul>
+    </div>
+
+    <div class="section" id="publications">
+      <h2 class="section-title">
+        <span>Publications</span>
+        <div class="view-toggle">
+          <button class="active" data-view="topic">By Topic</button>
+          <button data-view="year">By Year</button>
+        </div>
+      </h2>
+
+      <!-- BY TOPIC VIEW -->
+      <div class="view-content active" id="view-topic">
+
+        <!-- Theme 1: Brain-inspired -->
+        <div class="pub-group-title">Brain-inspired models for graphs and neuroimages</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/nature_comms.png" alt="Nature Communications 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Explore brain-inspired machine intelligence for connecting dots on graphs through holographic blueprint of oscillatory synchronization</a></div>
+              <div class="pub-authors">Tingting Dan*, <strong>Jiaqi Ding*</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Nature Communications, 2025</span><span class="pub-badge">Co-first</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/syncbrain.png" alt="SyncBrain AAAI 2026">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">SyncBrain: Exploring Brain Functional Dynamics Through Neural Oscillatory Synchronization</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Zhixuan Zhou, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">AAAI 2026</span><span class="pub-badge">Oral</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/let_brain_rhythm.png" alt="Let Brain Rhythm NeurIPS 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Let Brain Rhythm Shape Machine Intelligence for Connecting Dots on Graphs</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Zhixuan Zhou, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/tau_propagation.png" alt="Tau Propagation Multi-Layer Modeling">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Understanding Mechanistic Role of Structural and Functional Connectivity in Tau Propagation Through Multi-Layer Modeling</a></div>
+              <div class="pub-authors">Tingting Dan, Xinwei Huang, <strong>Jiaqi Ding</strong>, Yinggang Zheng, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">arXiv preprint, 2025</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+        <!-- Theme 2: Geometric -->
+        <div class="pub-group-title">Geometric modeling of brain networks</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/brainmap.png" alt="BrainMAP AAAI 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">BrainMAP: Learning Multiple Activation Pathways in Brain Networks</a></div>
+              <div class="pub-authors">Song Wang, Zhenyu Lei, Zhen Tan, <strong>Jiaqi Ding</strong>, Xinyu Zhao, Yushun Dong, Guorong Wu, Tianlong Chen, Chen Chen, Aiying Zhang, Jundong Li</div>
+              <div class="pub-meta"><span class="pub-venue">AAAI 2025</span><span class="pub-badge">Oral</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/geodynamics.png" alt="GeoDynamics NeurIPS 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">GeoDynamics: A Geometric State-Space Neural Network for Understanding Brain Dynamics on Riemannian Manifolds</a></div>
+              <div class="pub-authors">Tingting Dan, <strong>Jiaqi Ding</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/neuropath.png" alt="NeuroPath NeurIPS 2024">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">NeuroPath: A Neural Pathway Transformer for Joining the Dots of Human Connectomes</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2024</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/neurodetour.png" alt="NeuroDetour MIA 2026">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">NeuroDetour: A Neural Pathway Transformer for Uncovering Structural-Functional Coupling Mechanisms in Human Connectome</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Paul J. Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Medical Image Analysis, 2026</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/structural_detour.png" alt="Structural Detour MICCAI 2024">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Representing Functional Connectivity with Structural Detour: A New Perspective to Decipher Structure-Function Coupling Mechanism</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Paul Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI 2024</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/rethinking_gnn.png" alt="Re-think GNN NeurIPS 2023">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Re-think and Re-design Graph Neural Networks in Spaces of Continuous Graph Diffusion Functionals</a></div>
+              <div class="pub-authors">Tingting Dan, <strong>Jiaqi Ding</strong>, Ziquan Wei, Shahar Kovalsky, Minjeong Kim, Won Hwa Kim, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/nonlocal.png" alt="Non-Local Information Exchange Electronics 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Efficient Graph Representation Learning by Non-Local Information Exchange</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Electronics, 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Matrix-Response Generalized Linear Mixed Model with Applications to Longitudinal Brain Images</a></div>
+              <div class="pub-authors">Zhentao Yu, <strong>Jiaqi Ding</strong>, Guorong Wu, Quefeng Li</div>
+              <div class="pub-meta"><span class="pub-venue">arXiv preprint, 2026</span></div>
+            </div>
+          </li>
+
+        <!-- Theme 3: Replicability and benchmarking -->
+        <div class="pub-group-title">Replicability and benchmarking for neural and graph models</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/ieee_replicability.png" alt="IEEE TBME 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Scanning the Horizon of Replicability in Neuroscience: A Recipe of Developing Replicable Deep Models for Functional Neuroimages</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Ziquan Wei, Paul J. Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">IEEE TBME, 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/wasserstein.png" alt="Wasserstein MICCAI 2024">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Wasserstein Recipe for Replicable Machine Learning on Functional Neuroimages</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Ziquan Wei, Paul Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI 2024</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/information_sciences.png" alt="Information Sciences 2026 Dynamic FC">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Machine Learning on Dynamic Functional Connectivity: Promise, Pitfalls, and Interpretations</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Ziquan Wei, Paul J. Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Information Sciences, 2026</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/principled_gnn.png" alt="Towards Principled Design GNN">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Towards Principled Design for Graph Neural Networks Through Governing Law of Dynamic Learning Behavior</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">In submission</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+        <!-- Theme 4: Earlier work -->
+        <div class="pub-group-title">Earlier work — medical image analysis & bioinformatics</div>
+        <ul class="pub-list">
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A General Stitching Solution for Whole-Brain 3D Nuclei Instance Segmentation from Microscopy Images</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Mustafa Dere, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">High Throughput Deep Model of 3D Nucleus Instance Segmentation by Stereo Stitching Contextual Gaps</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Carolyn McCormick, Felix A. Kyere, Minjeong Kim, David Borland, Jason L. Stein, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">IEEE ISBI 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">IK-DDI: A Novel Framework Based on Instance Position Embedding and Key External Text for DDI Extraction</a></div>
+              <div class="pub-authors">Mingliang Dou, <strong>Jiaqi Ding</strong>, Genlang Chen, Junwen Duan, Fei Guo, Jijun Tang</div>
+              <div class="pub-meta"><span class="pub-venue">Briefings in Bioinformatics, 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Multi-Scale Multi-Model Deep Neural Network via Ensemble Strategy on High-Throughput Microscopy Image for Protein Subcellular Localization</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Junhai Xu, Jianguo Wei, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Expert Systems with Applications, 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Multichannel Deep Neural Network for Retina Vessel Segmentation via a Fusion Mechanism</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Zehua Zhang, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Frontiers in Bioengineering and Biotechnology, 2021</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Res2Unet: A Multi-Scale Channel Attention Network for Retinal Vessel Segmentation</a></div>
+              <div class="pub-authors">Xuejian Li, <strong>Jiaqi Ding</strong>, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Neural Computing and Applications, 2022</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Two-Stage Deep Neural Network via Ensemble Learning for Melanoma Classification</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Jie Song, Jiawei Li, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Frontiers in Bioengineering and Biotechnology, 2022</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Multi-Scale Time-Series Kernel-Based Learning Method for Brain Disease Diagnosis</a></div>
+              <div class="pub-authors">Zehua Zhang, <strong>Jiaqi Ding</strong>, Junhai Xu, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">IEEE JBHI, 2020</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Deep Supervision CNN Network for Brain Tumor Segmentation</a></div>
+              <div class="pub-authors">Shiqiang Ma, Zehua Zhang, <strong>Jiaqi Ding</strong>, Xuejian Li, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI BrainLes Workshop, 2020</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+
+      <!-- BY YEAR VIEW -->
+      <div class="view-content" id="view-year">
+
+        <div class="pub-group-title">2026</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/syncbrain.png" alt="SyncBrain AAAI 2026">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">SyncBrain: Exploring Brain Functional Dynamics Through Neural Oscillatory Synchronization</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Zhixuan Zhou, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">AAAI 2026</span><span class="pub-badge">Oral</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/information_sciences.png" alt="Information Sciences 2026">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Machine Learning on Dynamic Functional Connectivity: Promise, Pitfalls, and Interpretations</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Ziquan Wei, Paul J. Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Information Sciences, 2026</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/neurodetour.png" alt="NeuroDetour MIA 2026">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">NeuroDetour: A Neural Pathway Transformer for Uncovering Structural-Functional Coupling Mechanisms in Human Connectome</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Paul J. Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Medical Image Analysis, 2026</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Matrix-Response Generalized Linear Mixed Model with Applications to Longitudinal Brain Images</a></div>
+              <div class="pub-authors">Zhentao Yu, <strong>Jiaqi Ding</strong>, Guorong Wu, Quefeng Li</div>
+              <div class="pub-meta"><span class="pub-venue">arXiv preprint, 2026</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="pub-group-title">2025</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/nature_comms.png" alt="Nature Communications 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Explore brain-inspired machine intelligence for connecting dots on graphs through holographic blueprint of oscillatory synchronization</a></div>
+              <div class="pub-authors">Tingting Dan*, <strong>Jiaqi Ding*</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Nature Communications, 2025</span><span class="pub-badge">Co-first</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/let_brain_rhythm.png" alt="Let Brain Rhythm NeurIPS 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Let Brain Rhythm Shape Machine Intelligence for Connecting Dots on Graphs</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Zhixuan Zhou, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/geodynamics.png" alt="GeoDynamics NeurIPS 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">GeoDynamics: A Geometric State-Space Neural Network for Understanding Brain Dynamics on Riemannian Manifolds</a></div>
+              <div class="pub-authors">Tingting Dan, <strong>Jiaqi Ding</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/brainmap.png" alt="BrainMAP AAAI 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">BrainMAP: Learning Multiple Activation Pathways in Brain Networks</a></div>
+              <div class="pub-authors">Song Wang, Zhenyu Lei, Zhen Tan, <strong>Jiaqi Ding</strong>, Xinyu Zhao, Yushun Dong, Guorong Wu, Tianlong Chen, Chen Chen, Aiying Zhang, Jundong Li</div>
+              <div class="pub-meta"><span class="pub-venue">AAAI 2025</span><span class="pub-badge">Oral</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/ieee_replicability.png" alt="IEEE TBME 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Scanning the Horizon of Replicability in Neuroscience: A Recipe of Developing Replicable Deep Models for Functional Neuroimages</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Ziquan Wei, Paul J. Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">IEEE TBME, 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/nonlocal.png" alt="Non-Local Information Exchange Electronics 2025">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Efficient Graph Representation Learning by Non-Local Information Exchange</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">Electronics, 2025</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/tau_propagation.png" alt="Tau Propagation Multi-Layer Modeling">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Understanding Mechanistic Role of Structural and Functional Connectivity in Tau Propagation Through Multi-Layer Modeling</a></div>
+              <div class="pub-authors">Tingting Dan, Xinwei Huang, <strong>Jiaqi Ding</strong>, Yinggang Zheng, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">arXiv preprint, 2025</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="pub-group-title">2024</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/neuropath.png" alt="NeuroPath NeurIPS 2024">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">NeuroPath: A Neural Pathway Transformer for Joining the Dots of Human Connectomes</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2024</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/wasserstein.png" alt="Wasserstein MICCAI 2024">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Wasserstein Recipe for Replicable Machine Learning on Functional Neuroimages</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Tingting Dan, Ziquan Wei, Paul Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI 2024</span></div>
+            </div>
+          </li>
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/structural_detour.png" alt="Structural Detour MICCAI 2024">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Representing Functional Connectivity with Structural Detour: A New Perspective to Decipher Structure-Function Coupling Mechanism</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Paul Laurienti, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI 2024</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="pub-group-title">2023</div>
+        <ul class="pub-list">
+
+          <li class="pub">
+            <div class="pub-thumb">
+              <img src="papers/rethinking_gnn.png" alt="Re-think GNN NeurIPS 2023">
+            </div>
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Re-think and Re-design Graph Neural Networks in Spaces of Continuous Graph Diffusion Functionals</a></div>
+              <div class="pub-authors">Tingting Dan, <strong>Jiaqi Ding</strong>, Ziquan Wei, Shahar Kovalsky, Minjeong Kim, Won Hwa Kim, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">NeurIPS 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A General Stitching Solution for Whole-Brain 3D Nuclei Instance Segmentation from Microscopy Images</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Mustafa Dere, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">High Throughput Deep Model of 3D Nucleus Instance Segmentation by Stereo Stitching Contextual Gaps</a></div>
+              <div class="pub-authors">Ziquan Wei, Tingting Dan, <strong>Jiaqi Ding</strong>, Carolyn McCormick, Felix A. Kyere, Minjeong Kim, David Borland, Jason L. Stein, Guorong Wu</div>
+              <div class="pub-meta"><span class="pub-venue">IEEE ISBI 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">IK-DDI: A Novel Framework Based on Instance Position Embedding and Key External Text for DDI Extraction</a></div>
+              <div class="pub-authors">Mingliang Dou, <strong>Jiaqi Ding</strong>, Genlang Chen, Junwen Duan, Fei Guo, Jijun Tang</div>
+              <div class="pub-meta"><span class="pub-venue">Briefings in Bioinformatics, 2023</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Multi-Scale Multi-Model Deep Neural Network via Ensemble Strategy on High-Throughput Microscopy Image for Protein Subcellular Localization</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Junhai Xu, Jianguo Wei, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Expert Systems with Applications, 2023</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="pub-group-title">2022</div>
+        <ul class="pub-list">
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Res2Unet: A Multi-Scale Channel Attention Network for Retinal Vessel Segmentation</a></div>
+              <div class="pub-authors">Xuejian Li, <strong>Jiaqi Ding</strong>, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Neural Computing and Applications, 2022</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Two-Stage Deep Neural Network via Ensemble Learning for Melanoma Classification</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Jie Song, Jiawei Li, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Frontiers in Bioengineering and Biotechnology, 2022</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="pub-group-title">2021 & earlier</div>
+        <ul class="pub-list">
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Multichannel Deep Neural Network for Retina Vessel Segmentation via a Fusion Mechanism</a></div>
+              <div class="pub-authors"><strong>Jiaqi Ding</strong>, Zehua Zhang, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">Frontiers in Bioengineering and Biotechnology, 2021</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">Multi-Scale Time-Series Kernel-Based Learning Method for Brain Disease Diagnosis</a></div>
+              <div class="pub-authors">Zehua Zhang, <strong>Jiaqi Ding</strong>, Junhai Xu, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">IEEE JBHI, 2020</span></div>
+            </div>
+          </li>
+
+          <li class="pub pub-text-only">
+            <div class="pub-content">
+              <div class="pub-title"><a href="#" target="_blank">A Deep Supervision CNN Network for Brain Tumor Segmentation</a></div>
+              <div class="pub-authors">Shiqiang Ma, Zehua Zhang, <strong>Jiaqi Ding</strong>, Xuejian Li, Jijun Tang, Fei Guo</div>
+              <div class="pub-meta"><span class="pub-venue">MICCAI BrainLes Workshop, 2020</span></div>
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+    <div class="section" id="education">
+      <h2 class="section-title"><span>Education</span></h2>
+      <ul class="timeline">
+        <li class="tl-item">
+          <span class="tl-date">2022 — present</span>
+          <div class="tl-content">
+            <div class="tl-title">PhD in Computer Science</div>
+            <div class="tl-sub">UNC-Chapel Hill · Advised by <a href="https://wugrlab.web.unc.edu/" target="_blank">Prof. Guorong Wu</a></div>
+          </div>
+        </li>
+        <li class="tl-item">
+          <span class="tl-date">2019 — 2022</span>
+          <div class="tl-content">
+            <div class="tl-title">M.S. in Computer Technology</div>
+            <div class="tl-sub">Tianjin University · Advised by Prof. Fei Guo and Prof. Jijun Tang</div>
+          </div>
+        </li>
+        <li class="tl-item">
+          <span class="tl-date">2014 — 2018</span>
+          <div class="tl-content">
+            <div class="tl-title">B.S. in Digital Media Technology</div>
+            <div class="tl-sub">Shandong University</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="section" id="more">
+      <h2 class="section-title"><span>Honors & Services</span></h2>
+      <div class="two-col">
+        <div class="col-section">
+          <h3>Honors</h3>
+          <ul>
+            <li>AAAI 2026 Student Scholarship</li>
+            <li>AAAI 2026 Oral presentation</li>
+          </ul>
+        </div>
+        <div class="col-section">
+          <h3>Services</h3>
+          <ul>
+            <li><strong>Reviewer</strong> · ICML, ICLR, NeurIPS, AAAI, MICCAI</li>
+            <li><strong>Program Committee</strong> · T4V @ CVPR 2023, 2024</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">© 2026 Jiaqi Ding · Last updated April 2026</div>
+
+  </main>
+
+</div>
+
+<script>
+  document.querySelectorAll('.view-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const view = btn.dataset.view;
+      document.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.view-content').forEach(c => c.classList.remove('active'));
+      document.getElementById('view-' + view).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
